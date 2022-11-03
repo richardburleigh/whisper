@@ -301,7 +301,8 @@ def cli():
         torch.set_num_threads(threads)
 
     from . import load_model
-    model = load_model(model_name, device=device, download_root=model_dir)
+    model = load_model(model_name, device='cpu', download_root=model_dir)
+    model.to(device)
 
     for audio_path in args.pop("audio"):
         result = transcribe(model, audio_path, temperature=temperature, **args)
